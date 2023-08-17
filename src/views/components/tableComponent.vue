@@ -21,8 +21,11 @@
         <button class=" border-[#D0D5DD] border p-2 mr-2 rounded-lg" type="button">
           <img src="@/assets/icons/extra/Filter.png" alt="">
         </button>
-        <button class=" border-[#D0D5DD] border p-2 mr-2 rounded-lg" type="button">
-          <img src="@/assets/icons/tableIcons/Delete.png" alt="">
+        <button @click="multiDelete"
+                :class="selectedRow.length>=1 ? 'border border1 border-red-700 bg-red-700  p-2 mr-2 rounded-lg' : 'border-[#D0D5DD] border p-2 mr-2 rounded-lg'"
+                type="button">
+          <img src="@/assets/icons/tableIcons/Delete.png" v-if="selectedRow.length <= 0" alt="">
+          <img src="@/assets/icons/tableIcons/Delete.svg" v-else alt="">
         </button>
         <button
             class="bg-primary font-semibold px-[10px] inline-flex items-center text-white text-sm py-1 mr-2 rounded-lg"
@@ -34,12 +37,15 @@
     </div>
     <div class="w-full border border-1 border-[#EAECF0] bg-[#F9FAFB] rounded-[16px]">
       <div class="max-w-full overflow-x-scroll whitespace-nowrap relative rounded-[16px]">
+
         <table class="text-sm text-right rounded-lg text-gray-500 text-gray">
           <thead class="text-xs text-gray-700 uppercase">
           <tr>
             <th scope="col" class="p-4 sticky bg-white right-0">
               <div class="flex items-center">
-                <input @change="selectAll($event)" type="checkbox"
+                <input v-model="isSelectAll"
+                       @change="selectAll($event)"
+                       type="checkbox"
                        id="selectAll"
                        class="w-4 h-4 text-[#155EEF] bg-[#D1E0FF] rounded-lg focus:ring-none">
                 <label for="checkbox-all-search" class="sr-only">checkbox</label>
@@ -60,19 +66,18 @@
             <td class="px-6 py-4 w-12">
               شماره کارت
             </td>
-
             <td class="px-6 py-4 w-12">
               وضعیت درگاه
             </td>
             <td class="px-6 py-4 w-12">
               وضعیت کارتخوان
             </td>
-
             <th scope="col" class="px-6 py-3 sticky left-0 w-40 z-50 bg-[#F9FAFB]">
 
             </th>
           </tr>
           </thead>
+
           <tbody>
           <tr v-for="(item,index) in tableInfos" :key="index"
               class="bg-white border-b border-[#EAECF0] hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -80,8 +85,8 @@
               <div class="flex items-center">
                 <input type="checkbox"
                        :value="index"
-                       @change="selectAll($event)"
-                       class="w-4 h-4 text-[#D1E0FF] rounded-xl bg-gray border border-1 border-[#155EEF] focus:ring-none focus:ring-2">
+                       v-model="selectedRow"
+                       class="w-4 h-4 text-[#D1E0FF] rounded-xl bg-gray border border-1 border-[#155EEF] focus:ring-none">
                 <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
               </div>
             </td>
@@ -123,6 +128,7 @@
             </td>
           </tr>
           </tbody>
+
         </table>
       </div>
       <div class="flex pb-5 items-center mx-auto mt-5">
@@ -136,6 +142,7 @@
 </template>
 
 <script>
+
 
 export default {
   name: "tableComponent",
@@ -481,6 +488,7 @@ export default {
       ],
       showMore: false,
       showModal: false,
+      isSelectAll: false,
       limitation: 10,
       selectedRow: [],
       searchField: ''
@@ -495,13 +503,30 @@ export default {
 
   },
   methods: {
-    selectAll(e) {
-      console.log(e.target.value)
+    selectAll() {
+      if (this.isSelectAll) {
+        this.tableInfos.forEach((item, index) => {
+          this.selectedRow.push(index)
+        })
+      } else this.selectedRow = [];
+    },
+    multiDelete() {
+      if (this.selectedRow.length <= 0) {
+        this.$toast.info('حداقل یک آیتم برای حذف انتخاب کنید.')
+      } else {
+        if (confirm('ایا از حذف این آیتم ها اطمینان دارید؟')) {
+          this.selectedRow.forEach((item) => {
+            this.tableData.splice(item, 1);
+          });
+          this.selectedRow = [];
+        }
+
+      }
     }
   },
-  watch:{
-    showModal(value){
-      this.$emit('openFilter',value)
+  watch: {
+    showModal(value) {
+      this.$emit('openFilter', value)
     }
   }
 }
