@@ -2,7 +2,8 @@
 export default {
   name: "selectBox",
   props: {
-    value: Object
+    value: String,
+    informations: Object
   },
   data() {
     return {
@@ -16,9 +17,9 @@ export default {
       }
     }
   },
-  methods:{
-    getValue(val){
-      this.selectedItem=val
+  methods: {
+    getValue(val) {
+      this.selectedItem = val.target.value
     }
   }
 }
@@ -26,16 +27,14 @@ export default {
 
 <template>
   <div>
-
-    <label for="countries"
-           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ value.title }}</label>
-    <select id="countries"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 focus:border-none">
-      <option v-for="(item,index) in value.params" @change="getValue(item.value)" :key="index" :value="item.value">
+    <label class="block mb-2 text-sm font-semibold text-gray text-right">{{ informations.title }}</label>
+    <select
+        @change="getValue($event)"
+        class="bg-white border border-1 border-[#D0D5DD] text-gray text-sm rounded-lg focus:ring-none focus:border-[#D0D5DD] block w-full p-2.5">
+      <option v-for="(item,index) in informations.params" :key="index" :value="item.value">
         {{ item.title }}
       </option>
     </select>
-
   </div>
 </template>
 

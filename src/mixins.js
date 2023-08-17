@@ -17,6 +17,10 @@ export default {
             return x ? new Intl.NumberFormat('en-US', {style: 'decimal'}).format(x) : ''
         });
 
+        Vue.filter("trimSring", (parameter) => {
+           return  parameter.length > 20 ? parameter.substring(0, 20) + '...' : parameter;
+        });
+
         Vue.filter('persianNum', function (input) {
             if (input === undefined || input == null) return "";
             let str1 = input.toString().trim();

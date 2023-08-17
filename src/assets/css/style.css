@@ -2,7 +2,7 @@
     -webkit-tap-highlight-color: transparent;
     font-family: Vazir, serif!important;
     letter-spacing: unset !important;
-    @apply selection:bg-yellow-300 select-none
+    @apply selection:bg-[#D1E0FF] select-none
 }
 
 input[type=number]::-webkit-inner-spin-button,
