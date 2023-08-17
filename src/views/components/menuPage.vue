@@ -32,15 +32,15 @@
             <img src="@/assets/icons/menuIcons/Bank Card swap 1.svg" class="mr-auto" alt="">
           </button>
           <li class="px-4 flex items-center" v-for="(item,index) in menuList" :key="index">
-            <img v-if="item.hasParent === false" :src="require('@/assets/icons/menuIcons/Category 2.png')" alt="">
+            <img v-if="item.hasParent === false" :src="require(`@/assets/icons/menuIcons/${item.icon}`)" alt="">
             <a @click="toggleMenu(item.name,item.isParent)"
                v-if="item.isParent === false && item.parent_id === '' "
                :class="item.isActive ? 'flex items-center font-semibold p-2 text-primary  cursor-pointer rounded-lg hover:bg-gray-100 group' : 'flex items-center p-2 text-gray rounded-lg font-semibold hover:bg-gray-100 group' ">
-              <span class="ml-3">{{ item.title }}</span>
+              <span class="mr-3">{{ item.title }}</span>
             </a>
             <button @click="toggleMenu(item.name,item.isParent)" v-if="item.isParent && item.parent_id === '' "
                     type="button"
-                    class="flex items-center cursor-pointer font-semibold w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100"
+                    class="flex items-center cursor-pointer font-semibold w-full p-2 mr-3 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100"
                     aria-controls="dropdown-example" :data-collapse-toggle="item.name">
               <img :src="item.icon" alt="">
               <span

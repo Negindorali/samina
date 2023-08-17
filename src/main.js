@@ -4,8 +4,10 @@ import router from './router'
 import store from './store'
 import '../src/tailwind.css'
 import '../src/assets/css/style.css'
+import mixins from "@/mixins";
 
 Vue.config.productionTip = false
+Vue.mixin(mixins);
 
 new Vue({
   router,
