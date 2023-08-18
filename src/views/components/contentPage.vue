@@ -10,7 +10,7 @@ export default {
 
 <template>
   <div>
-    <div class="p-4 mt-3">
+    <div class="px-4">
       <bread-crumbs></bread-crumbs>
       <data-table></data-table>
     </div>

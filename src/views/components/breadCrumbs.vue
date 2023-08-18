@@ -7,7 +7,7 @@ export default {
 <template>
 <div>
 
-  <nav class="flex items-center mt-16" aria-label="Breadcrumb">
+  <nav class="flex items-center" aria-label="Breadcrumb">
     <ol class="inline-flex items-center space-x-1 md:space-x-3">
       <li class="inline-flex items-center">
         <img :src="require('@/assets/icons/menuIcons/Category 2.png')"  alt="">

@@ -9,8 +9,8 @@ export default {
 </script>
 
 <template>
-  <nav class="sticky top-0 bg-white z-50 border-b border-[#EAECF0]">
-    <div class="px-3 pb-3 lg:px-5 lg:pl-3">
+  <nav class="sticky top-0 bg-white z-30 border-b border-[#EAECF0]">
+    <div class="px-3 lg:px-5 lg:pl-3">
       <div class="flex items-center justify-between">
         <div class="flex items-center justify-start">
           <date-time></date-time>

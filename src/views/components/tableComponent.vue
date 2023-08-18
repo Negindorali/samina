@@ -41,7 +41,7 @@
         <table class="text-sm text-right rounded-lg text-gray-500 text-gray">
           <thead class="text-xs text-gray-700 uppercase">
           <tr>
-            <th scope="col" class="p-4 sticky bg-white right-0">
+            <th scope="col" class="p-4 sticky right-0">
               <div class="flex items-center">
                 <input v-model="isSelectAll"
                        @change="selectAll($event)"
@@ -51,7 +51,7 @@
                 <label for="checkbox-all-search" class="sr-only">checkbox</label>
               </div>
             </th>
-            <th scope="row" class="px-6 py-4 w-12 font-medium text-gray whitespace-nowrap sticky bg-white right-12">
+            <th scope="row" class="px-6 py-4 w-12 font-medium text-gray whitespace-nowrap sticky right-12">
               عنوان حساب
             </th>
             <td class="px-6 py-4 w-12">
@@ -79,7 +79,7 @@
           </thead>
 
           <tbody>
-          <tr v-for="(item,index) in tableInfos" :key="index"
+          <tr v-for="(item,index) in tableData" :key="index"
               class="bg-white border-b border-[#EAECF0] hover:bg-gray-50 dark:hover:bg-gray-600">
             <td class="w-4 p-4 sticky bg-white right-0">
               <div class="flex items-center">
@@ -132,7 +132,7 @@
         </table>
       </div>
       <div class="flex pb-5 items-center mx-auto mt-5">
-        <button class="inline-flex items-center mx-auto" @click="limitation = limitation+10">
+        <button class="inline-flex items-center mx-auto" @click="loadMore">
           مشاهده بیشتر
           <img src="@/assets/icons/tableIcons/Arrow - Down 2.png" alt="" class="mr-2">
         </button>
@@ -147,19 +147,19 @@
 export default {
   name: "tableComponent",
   props: {
-    value: Number
+    value: Object,
   },
   data() {
     return {
-      tableData: [
+      data: [
         {
           "accountTitle": "بانک ملی شعبه خواجو استان تهران",
           "accountCode": "۵۶۹۸۷۴۵۲۱۴۵۹۸۷۴۵۶",
           "accountNumber": "۵۵۴۸۷۵۵۲",
-          "sheba": "IR-۹۸-۰۱۷-۰۰۰۰-۰۰۰۱-۲۳...",
+          "sheba": "IR-۹۸-۰۱۷-۰۰۰۰-۰۰۰۰۱-۲۳۸۹۹۰۰۰۰",
           "cardNumber": "۶۰۳۷-۹۹۸۷-۵۵۴۴-۳۳۶۶",
-          "portStatus": "active",
-          "cardStatus": "active"
+          "portStatus": "all",
+          "cardStatus": "all"
         },
         {
           "accountTitle": "بانک ملی شعبه خواجو استان تهران",
@@ -486,21 +486,14 @@ export default {
           "cardStatus": "deactive"
         },
       ],
+      tableData: [],
       showMore: false,
       showModal: false,
       isSelectAll: false,
-      limitation: 10,
+      showCount: 10,
       selectedRow: [],
-      searchField: ''
+      searchField: '',
     }
-  },
-  computed: {
-    tableInfos() {
-      this.$emit('input', this.tableData.length);
-      return this.tableData.slice(0, this.limitation);
-      // eslint-disable-next-line no-unreachable
-    },
-
   },
   methods: {
     selectAll() {
@@ -522,12 +515,53 @@ export default {
         }
 
       }
+    },
+    filterData(search,count=this.showCount) {
+      return this.data.filter(item => {
+        let condition= item.accountTitle.includes(search) || item.accountCode.includes(search) || item.accountNumber.includes(search) || item.sheba.includes(search) || item.cardNumber.includes(search);
+
+        if(this.value.filters.cardStatus!=='')
+        condition=condition && item.cardStatus === this.value.filters.cardStatus;
+
+        if(this.value.filters.portStatus!=='')
+        condition=condition && item.portStatus === this.value.filters.portStatus;
+
+        return condition;
+      }).slice(0,count);
+    },
+    loadMore(){
+      this.showCount = this.showCount + 10;
+      this.tableData = this.filterData(this.searchField,this.showCount);
     }
   },
   watch: {
     showModal(value) {
       this.$emit('openFilter', value)
-    }
+    },
+    searchField(val) {
+      this.tableData = this.filterData(val);
+    },
+    tableInfos: {
+      handler(val) {
+        this.$emit('input', {
+          ...this.value,
+          pageHeaderInfo: {
+            ...this.value.pageHeaderInfo,
+            accountLength: val.length,
+          }
+        });
+      },
+      deep: true
+    },
+    'value.filters': {
+      handler() {
+       this.tableData= this.filterData(this.searchField)
+      },
+      deep: true
+    },
+  },
+  mounted() {
+    this.tableData = this.filterData(this.searchField);
   }
 }
 </script>

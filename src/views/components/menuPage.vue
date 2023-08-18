@@ -22,18 +22,17 @@
           </a>
         </div>
         <ul class="space-y-2 mt-9 font-medium">
-          <button type="button"
-                  class="flex font-semibold p-2 px-4 mb-8 items-center w-full rounded-lg transition duration-75 bg-[#F9FAFB]">
+          <li class="flex font-semibold p-2 px-4 mb-8 items-center w-full rounded-lg transition duration-75 bg-[#F9FAFB]">
             <img src="@/assets/icons/menuIcons/Rectangle 82.png" width="32" class="img-fluid" alt="">
             <span
                 class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
               <span class="ml-3">شرکت اپل</span>
             </span>
             <img src="@/assets/icons/menuIcons/Bank Card swap 1.svg" class="mr-auto" alt="">
-          </button>
+          </li>
           <li class="px-4 items-center" v-for="(item,index) in menuList" :key="index">
             <div class="flex">
-              <div>
+              <div class="my-auto">
                 <img v-if="item.hasParent === false" :src="require(`@/assets/icons/menuIcons/${item.icon}`)" alt="">
               </div>
 
@@ -42,22 +41,23 @@
                  :class="item.isActive ? 'flex items-center font-semibold p-2 text-primary  cursor-pointer rounded-lg hover:bg-gray-100 group' : 'flex items-center p-2 text-gray rounded-lg font-semibold hover:bg-gray-100 group' ">
                 <span class="mr-3">{{ item.title }}</span>
               </a>
+
               <button @click="toggleMenu(item.name,item.isParent)" v-if="item.isParent && item.parent_id === '' "
                       type="button"
                       class="flex items-center cursor-pointer font-semibold w-full p-2 mr-3 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100"
                       aria-controls="dropdown-example" :data-collapse-toggle="item.name">
               <span
-                  :class="item.isActive ? 'flex-1 ml-3 text-right text-primary whitespace-nowrap' : 'flex-1 ml-3 text-right whitespace-nowrap' ">{{
-                  item.title
-                }}</span>
+                  :class="item.isActive ? 'flex-1 ml-3 text-right text-primary whitespace-nowrap' : 'flex-1 ml-3 text-right whitespace-nowrap' ">
+                {{ item.title }}
+              </span>
                 <img src="@/assets/icons/menuIcons/Stroke-1.png" alt="">
               </button>
             </div>
-            <ul v-if="item.isParent && item.name === activeMenu" :id="item.name"
+            <ul v-if="item.hasParent || item.name === activeMenu" :id="item.name"
                 :class="showSubMenu ? 'py-2 space-y-2' : 'hidden py-2 space-y-2'">
               <li class="px-4 flex items-center" v-for="subMenu in menuList.filter((x)=>x.parent_id !== '')"
                   :key="subMenu.id">
-                <a v-if="item.id === subMenu.parent_id" @click="toggleMenu(subMenu.name,subMenu.isParent)"
+                <a v-if="item.id === subMenu.parent_id" @click="toggleMenu(subMenu)"
                    class="flex items-center font-semibold cursor-pointer p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">{{
                     subMenu.title
                   }}</a>

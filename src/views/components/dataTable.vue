@@ -26,15 +26,22 @@ export default {
           {title: 'غیرفعال', value: 'deactive'},
         ]
       },
-      pageHeadeInfo: {
-        title: 'تعریف حساب بانکی',
-        subTitle: 'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است.',
-        accountLength: 120
-      },
-      filters: {
-        cardStatus: '',
-        portStatus: ''
+      tableWhat:{
+        pageHeaderInfo: {
+          title: 'تعریف حساب بانکی',
+          subTitle: 'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است.',
+          accountLength: 37
+        },
+        filters: {
+          cardStatus: '',
+          portStatus: ''
+        }
       }
+    }
+  },
+  methods:{
+    submitFilters(){
+      this.showModal=false;
     }
   }
 }
@@ -42,7 +49,7 @@ export default {
 
 <template>
   <div>
-    <table-head :data="pageHeadeInfo" class="mt-5"></table-head>
+    <table-head :data="tableWhat.pageHeaderInfo" class="mt-5"></table-head>
 
     <modal-custom :width="'max-w-sm'" v-model="showModal">
       <template v-slot:modalHead>
@@ -57,8 +64,8 @@ export default {
       <template v-slot:modalContent>
 
         <div class="w-full p-5">
-          <select-box class="my-3" v-model="filters.cardStatus" :informations="cardStatus"></select-box>
-          <select-box class="mt-2" v-model="filters.portStatus" :informations="portStatus"></select-box>
+          <select-box class="my-3" v-model="tableWhat.filters.cardStatus" :informations="cardStatus"></select-box>
+          <select-box class="mt-2" v-model="tableWhat.filters.portStatus" :informations="portStatus"></select-box>
         </div>
       </template>
 
@@ -66,6 +73,7 @@ export default {
 
         <div class="grid grid-cols-2 text-center items-center px-2">
           <button
+              @click="submitFilters"
               class="bg-primary font-semibold text-center  text-white text-sm py-2 mr-2 rounded-lg"
               type="button">
             تایید
@@ -80,7 +88,7 @@ export default {
       </template>
     </modal-custom>
 
-    <table-component @openFilter="(val)=>{this.showModal=val}" v-model="pageHeadeInfo.accountLength" class="mt-8"></table-component>
+    <table-component @openFilter="(val)=>{this.showModal=val}" v-model="tableWhat" class="mt-8"></table-component>
 
   </div>
 </template>

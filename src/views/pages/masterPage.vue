@@ -1,10 +1,10 @@
 <template>
-  <div class="grid grid-cols-6">
-    <div >
+  <div class="grid grid-cols-5">
+    <div class="z-50">
       <menu-page/>
     </div>
 
-    <div class="col-span-5 relative overflow-y-auto max-h-screen">
+    <div class="col-span-4 relative overflow-y-auto max-h-screen">
       <nav-bar/>
       <content-page/>
     </div>
