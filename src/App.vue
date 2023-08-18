@@ -1,9 +1,11 @@
 <template>
   <div id="app">
-    <side-bar></side-bar>
     <router-view/>
   </div>
 </template>
+
+<script setup>
+</script>
 
 <style>
 #app {
@@ -27,6 +29,3 @@ nav a.router-link-exact-active {
   color: #42b983;
 }
 </style>
-<script setup>
-import SideBar from "@/views/components/sideBar.vue";
-</script>

@@ -24,14 +24,11 @@ export default {
 
 <template>
   <div>
-
     <!-- Main modal -->
-    <div v-show="value" tabindex="-1" aria-hidden="true" aria-modal="true" role="dialog"
-         class="fixed top-0 left-0 right-0 z-[1055] w-full bg-[#344054] opacity-[0.3] p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1px)] max-h-full">
-      <div :class="width" class="relative w-full max-h-full opacity-100">
+    <div v-show="value" class="fixed flex top-0 left-0 right-0 z-50 w-full bg-[#34405473] p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1px)] max-h-full">
+      <div :class="width" class="relative w-full max-h-full opacity-100 mx-auto my-auto">
         <!-- Modal content -->
-        <div class="relative bg-white shadow border-none z-[10055] opacity-100">
-
+        <div class="relative bg-white shadow border-none opacity-100 rounded">
           <div class="flex items-center border-b-2 border border-light-gray bg-white">
             <button type="button"
                     @click="closeDialog"

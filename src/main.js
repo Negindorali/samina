@@ -1,12 +1,14 @@
+import '../src/tailwind.css';
+import '../src/assets/css/style.css';
+import 'vue-toast-notification/dist/theme-sugar.css';
+
 import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 import store from './store';
-import '../src/tailwind.css';
-import '../src/assets/css/style.css';
 import mixin from "@/mixins";
 import VueToast from "vue-toast-notification";
-import 'vue-toast-notification/dist/theme-sugar.css';
+import './filters'
 
 Vue.mixin(mixin);
 Vue.config.productionTip = false;

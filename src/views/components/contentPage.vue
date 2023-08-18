@@ -10,8 +10,8 @@ export default {
 
 <template>
   <div>
-    <div class="p-4 w-[80%] mt-3 mr-[19rem] sm:ml-64">
-        <bread-crumbs></bread-crumbs>
+    <div class="p-4 mt-3">
+      <bread-crumbs></bread-crumbs>
       <data-table></data-table>
     </div>
 

@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="w-full">
     <aside id="logo-sidebar"
-           class="fixed top-0 right-0 z-40  w-[20%] h-screen pt-10 transition-transform -translate-x-full bg-white border-l border-[#EAECF0] sm:translate-x-0 "
+           class="min-h-screen pt-10 transition-transform -translate-x-full bg-white border-l border-[#EAECF0] sm:translate-x-0 "
            aria-label="Sidebar">
       <img src="@/assets/icons/menuIcons/Frame 123.png" class="absolute left-[-13px] z-50" alt="">
       <div class="h-full px-3 pb-4 overflow-y-auto relative bg-white">
@@ -31,24 +31,28 @@
             </span>
             <img src="@/assets/icons/menuIcons/Bank Card swap 1.svg" class="mr-auto" alt="">
           </button>
-          <li class="px-4 flex items-center" v-for="(item,index) in menuList" :key="index">
-            <img v-if="item.hasParent === false" :src="require(`@/assets/icons/menuIcons/${item.icon}`)" alt="">
-            <a @click="toggleMenu(item.name,item.isParent)"
-               v-if="item.isParent === false && item.parent_id === '' "
-               :class="item.isActive ? 'flex items-center font-semibold p-2 text-primary  cursor-pointer rounded-lg hover:bg-gray-100 group' : 'flex items-center p-2 text-gray rounded-lg font-semibold hover:bg-gray-100 group' ">
-              <span class="mr-3">{{ item.title }}</span>
-            </a>
-            <button @click="toggleMenu(item.name,item.isParent)" v-if="item.isParent && item.parent_id === '' "
-                    type="button"
-                    class="flex items-center cursor-pointer font-semibold w-full p-2 mr-3 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100"
-                    aria-controls="dropdown-example" :data-collapse-toggle="item.name">
-              <img :src="item.icon" alt="">
+          <li class="px-4 items-center" v-for="(item,index) in menuList" :key="index">
+            <div class="flex">
+              <div>
+                <img v-if="item.hasParent === false" :src="require(`@/assets/icons/menuIcons/${item.icon}`)" alt="">
+              </div>
+
+              <a @click="toggleMenu(item.name,item.isParent)"
+                 v-if="item.isParent === false && item.parent_id === '' "
+                 :class="item.isActive ? 'flex items-center font-semibold p-2 text-primary  cursor-pointer rounded-lg hover:bg-gray-100 group' : 'flex items-center p-2 text-gray rounded-lg font-semibold hover:bg-gray-100 group' ">
+                <span class="mr-3">{{ item.title }}</span>
+              </a>
+              <button @click="toggleMenu(item.name,item.isParent)" v-if="item.isParent && item.parent_id === '' "
+                      type="button"
+                      class="flex items-center cursor-pointer font-semibold w-full p-2 mr-3 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100"
+                      aria-controls="dropdown-example" :data-collapse-toggle="item.name">
               <span
                   :class="item.isActive ? 'flex-1 ml-3 text-right text-primary whitespace-nowrap' : 'flex-1 ml-3 text-right whitespace-nowrap' ">{{
                   item.title
                 }}</span>
-              <img src="@/assets/icons/menuIcons/Stroke-1.png" alt="">
-            </button>
+                <img src="@/assets/icons/menuIcons/Stroke-1.png" alt="">
+              </button>
+            </div>
             <ul v-if="item.isParent && item.name === activeMenu" :id="item.name"
                 :class="showSubMenu ? 'py-2 space-y-2' : 'hidden py-2 space-y-2'">
               <li class="px-4 flex items-center" v-for="subMenu in menuList.filter((x)=>x.parent_id !== '')"

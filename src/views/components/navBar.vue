@@ -9,23 +9,20 @@ export default {
 </script>
 
 <template>
-  <div>
-    <nav class="fixed top-0 z-40 w-[80%] left-0 bg-white h-[13%] border-b border-[#EAECF0]">
-      <div class="px-3 pb-3 lg:px-5 lg:pl-3">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center justify-start">
-            <date-time></date-time>
-          </div>
-          <div class="flex items-center">
-            <div class="flex items-center ml-3">
-              <avatar-section></avatar-section>
-            </div>
+  <nav class="sticky top-0 bg-white z-50 border-b border-[#EAECF0]">
+    <div class="px-3 pb-3 lg:px-5 lg:pl-3">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center justify-start">
+          <date-time></date-time>
+        </div>
+        <div class="flex items-center">
+          <div class="flex items-center ml-3">
+            <avatar-section></avatar-section>
           </div>
         </div>
       </div>
-    </nav>
-
-  </div>
+    </div>
+  </nav>
 </template>
 
 <style scoped>

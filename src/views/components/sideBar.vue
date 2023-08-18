@@ -14,10 +14,7 @@ export default {
     <nav-bar></nav-bar>
     <content-page></content-page>
     <menu-page></menu-page>
-
-    </div>
-
-
+  </div>
 </template>
 
 <style scoped>

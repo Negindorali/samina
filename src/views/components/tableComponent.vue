@@ -72,7 +72,7 @@
             <td class="px-6 py-4 w-12">
               وضعیت کارتخوان
             </td>
-            <th scope="col" class="px-6 py-3 sticky left-0 w-40 z-50 bg-[#F9FAFB]">
+            <th scope="col" class="px-6 py-3 sticky left-0 w-40 bg-[#F9FAFB]">
 
             </th>
           </tr>
@@ -91,7 +91,7 @@
               </div>
             </td>
             <th scope="row" class="px-6 py-4 w-40 font-medium text-gray whitespace-nowrap sticky bg-white right-12">
-              {{ item.accountTitle | trimSring }}
+              {{ item.accountTitle | trimString }}
             </th>
             <td class="px-6 py-4 w-40">
               {{ item.accountCode }}
@@ -147,7 +147,7 @@
 export default {
   name: "tableComponent",
   props: {
-    value: String
+    value: Number
   },
   data() {
     return {

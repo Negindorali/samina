@@ -14,7 +14,7 @@ export default {
       <div class="text-right mr-3">
         <div class="flex items-center">
           <h1 class="font-extrabold text-black text-[24px]">{{ data.title }}</h1>
-          <span class="bg-light-gray text-gray-800 text-xs font-semibold mr-3 px-3 py-1 rounded-full">{{data.accountLength |persianNum}} حساب</span>
+          <span class="bg-light-gray text-gray-800 text-xs font-semibold mr-3 px-3 py-1 rounded-full">{{ data.accountLength | persianNum }} حساب</span>
         </div>
         <p class="font-[16px] mt-2">{{ data.subTitle }}</p>
       </div>
